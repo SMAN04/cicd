@@ -1,12 +1,35 @@
-name: test CICD
+name: Salcom Combined
 
 on: [push]
 
 jobs:
     build:
         runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                python-versions: [3.8, 3.9, 3.10]
+
         steps:
         - name: checkout code
           uses: actions/checkout@v2
-        - name: we are testing this workflow
-          run: echo hello everyone!
+
+        - name: setup python
+          uses: actions/setup-python@v2
+          with:
+            python-version: ${{ matrix.python-versions}}
+
+        - name: install dependencies
+          run: |
+            cd chapter4
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then pip install -r requirements.txt
+
+        - name: run tests
+          run: |
+            cd chapter4
+            python -m unittest discover
+
+        - name: notify us of success
+          run: echo "Tests passed on python ${{ matrix.python-versions}}"
+          if: success()
