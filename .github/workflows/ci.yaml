@@ -3,33 +3,33 @@ name: Salcom Combined
 on: [push]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                python-versions: [3.8, 3.9, 3.10]
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
 
-        steps:
-        - name: checkout code
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: setup python
-          uses: actions/setup-python@v2
-          with:
-            python-version: ${{ matrix.python-versions}}
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-        - name: install dependencies
-          run: |
-            cd chapter4
-            python -m pip install --upgrade pip
-            if [ -f requirements.txt ]; then pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          cd chapter4
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-        - name: run tests
-          run: |
-            cd chapter4
-            python -m unittest discover
+      - name: Run tests
+        run: |
+          cd chapter4
+          python -m unittest discover
 
-        - name: notify us of success
-          run: echo "Tests passed on python ${{ matrix.python-versions}}"
-          if: success()
+      - name: Notify success
+        if: success()
+        run: echo "Tests passed on python ${{ matrix.python-version }}"
