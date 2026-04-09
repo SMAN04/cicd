@@ -13,4 +13,4 @@ jobs:
       - name: Hello World custom action
         uses: SMAN04/custom_actions@main
         with:
-          who to greet: "Sal"
+          who-to-greet: "Sal"
