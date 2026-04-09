@@ -1,1 +1,18 @@
-# key value pairs
+     # key value pairs
+
+name: sal man
+age: 30
+title: IT
+
+# lists
+
+fruits:
+- apple
+- pear
+- orange
+
+# nested
+
+address:
+  street: downing street
+  door: 109
