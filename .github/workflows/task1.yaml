@@ -31,5 +31,5 @@ jobs:
 
       - name: Run tests (pytest)
         run: |
-            pytest tests/
+            pytest chapter4/
         
